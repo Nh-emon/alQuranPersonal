@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al Quran</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/library.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body class="scroll_hidden">
+
+
+    <i class="fa-solid fa-xmark i-rec mid crimson-bg white dis-hide" id="exitReadModeBtn"></i>
+
+<!-- start nav -->
+<nav class="flex shadow-mid dis-hide">
+
+
+<div class="allNavBtn full space-around box-bg">
+
+    <i class="fa-solid fa-arrow-left i-rec max round box-bg" id="hideNavBtn"></i>
+
+    <i class="fa-solid fa-bars i-rec max round box-bg has_ripple" id="navMenuBtn"></i>
+    <i class="fa-solid fa-book-quran i-rec max round box-bg has_ripple space-x-min" id="homeBtn"></i>
+
+    <div id="themeBtnContainer" class="flex-center">
+        <i id="lightMode" class="fa-solid fa-sun  i-rec max round box-bg has_ripple"></i></button>
+        <i id="darkMode"  class="fa-solid fa-moon i-rec max round box-bg has_ripple "></i></button>
+    </div>     
+
+    <h3 class="t-center flex-full pad-min f14" id="navTitle">Al Quran</h3>
+
+        <i class="fa-solid fa-note-sticky i-rec max round box-bg has_ripple" id="navNoteBtn"></i>
+        <i class="fa-solid fa-file-word i-rec max round box-bg has_ripple"   id="navWordBtn"></i>
+        <i class="fa-solid fa-gear i-rec max round box-bg has_ripple"        id="navSettingBtn"></i>    
+
+    <div id="notification-icon">
+        <i class="fa-solid fa-bell i-rec max round box-bg"></i>
+        <span id="notification-number" class="white">2</span>
+     </div>
+
+    <i class="fa-solid fa-arrow-right i-rec max box-bg dis-hide" id="showNavBtn"></i>
+
+</div>
+
+
+</nav>
+<!-- end nav -->
+
+
+<!-- start leftSide -->
+<div id="leftSide" class="border-mid shadow-max radius-min scroll min .no_bg_scrollbar">
+
+     <i class="fa-solid fa-chevron-left i-rec mid box-bg" id="leftSideHideBtn"></i>
+
+    <!-- start sort-drop-down -->
+    <div class="dropDown surahDD max flex-column space-y-max">
+        <div id="" class="selectField flex-between radius-min shadow-min">
+            <p class="optionText">Surah</p>
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <!-- start option -->
+        <div id="" class="dd-options border-min radius-small shadow-min scroll min">
+            <!-- <li class="dd-option"><p>112.Ekhlas</p></li> -->
+        </div>
+        <!-- end options -->
+    </div>
+    <!-- end sort-drop-down -->
+
+
+    <div id="Buttons" class="flex-column" class="scroll min">
+        <button class="btn max  same-width box-bg" data-handleSection="section-add-surah" id="addSurah">add surah</button>
+        <button id="showNote" class="btn max same-width box-bg" data-handleSection="section-note">show note</button>
+        <button class="btn max same-width box-bg" data-handleSection="section-word-table
+        " id="wordTable">word table</button>
+        <button class="btn max same-width box-bg" data-handleSection="section-add-surah" id="updateSurah">update surah</button>
+        <button class="btn max same-width box-bg" data-handleSection="">QNA section</button>
+        <button class="btn max same-width box-bg" data-handleSection="section-add-category">add category</button>
+        <button class="btn max same-width box-bg" data-handleSection="section-import-export">setting</button>
+    </div>
+<!-- end buttons -->
+
+</div>
+<!-- end leftSide -->
+
+<!-- start main -->
+<main class="full">
+
+    <div class="w-full flex-center space-y-max dis-hide" id="loaderContainer"><span class="loader min"></span></div>
+
+
+<!-- start section-loadedSecreen -->
+<section id="section-loadedScreen" class="full flex-column-center hasAnimation">
+    <i class="fa-solid fa-book-quran" id="bookIcon"></i>
+    <h3>Al Quran</h3>
+</section>
+<!-- end section-loadedSecreen -->
+
+
+
+    <!-- -------------------------------------------------------------------------------------------- -->
+<!-- start section-surah -->
+<section id="section-surah" class="full min scroll_hidden dis-hide">
+
+
+<!-- start surah-main -->
+<div id="surah-main" class="border-min shadow-mid radius-small pad-mid scroll_hidden">
+
+<header class="w-full flex-end gap-min">
+    <i class="fa-solid fa-arrow-down i-rec mid round box-bg" id="surahDownloadBtn"></i>
+    <i class="fa-solid fa-eye i-rec round mid box-bg" id="readModeBtn"></i>
+    <button id="arBtn"   class="i-rec mid box-bg">ar</button>
+    <button id="arEnBtn" class="i-rec mid box-bg">pr</button>
+    <button id="enBtn"   class="i-rec mid box-bg">en</button>
+    <button id="bnBtn"   class="i-rec mid box-bg">bn</button>
+    <i class="fa-solid fa-list i-rec mid box-bg has_ripple" id="rightSideMenuBtn"></i>
+</header>
+
+
+<div id="ayats" class="flex-column gap-max space-y-mid full scroll min">
+
+
+
+    <div class="each-ayat shadow-mid border-min radius-small">
+        <i class="fa-solid fa-bookmark i-rec round mid box-bg space-x-mid"></i>
+        <div class="ayat-texts">
+            <li class="arabicText t-center font-light">bismillahir rahmanir rahim arabic</li>
+            <li class="arabicEnText">bismillahir rahmanir rahim english vocals</li>
+            <li class="englishText">Say: I seek refuge with the Lord of the Dawn</li>
+            <li class="banglaText font-light">তুমি বলো -- ''আমি আশ্রয় চাইছি নিশিভোরের প্রভুর কাছে</li>
+        </div>
+    </div>
+<!-- end each-ayat -->
+<div class="each-ayat shadow-mid border-min radius-small">
+    <i class="fa-solid fa-bookmark i-rec round mid box-bg space-x-mid"></i>
+    <div class="ayat-texts">
+        <li class="arabicText t-center font-light">bismillahir rahmanir rahim arabic</li>
+        <li class="arabicEnText">bismillahir rahmanir rahim english vocals</li>
+        <li class="englishText">Say: I seek refuge with the Lord of the Dawn</li>
+        <li class="banglaText font-light">তুমি বলো -- ''আমি আশ্রয় চাইছি নিশিভোরের প্রভুর কাছে</li>
+    </div>
+</div>
+<!-- end each-ayat -->
+<div class="each-ayat shadow-mid border-min radius-small">
+    <i class="fa-solid fa-bookmark i-rec round mid box-bg space-x-mid"></i>
+    <div class="ayat-texts">
+        <li class="arabicText t-center font-light">bismillahir rahmanir rahim arabic</li>
+        <li class="arabicEnText">bismillahir rahmanir rahim english vocals</li>
+        <li class="englishText">Say: I seek refuge with the Lord of the Dawn</li>
+        <li class="banglaText font-light">তুমি বলো -- ''আমি আশ্রয় চাইছি নিশিভোরের প্রভুর কাছে</li>
+    </div>
+</div>
+<!-- end each-ayat -->
+<div class="each-ayat shadow-mid border-min radius-small">
+    <i class="fa-solid fa-bookmark i-rec round mid box-bg space-x-mid"></i>
+    <div class="ayat-texts">
+        <li class="arabicText t-center font-light">bismillahir rahmanir rahim arabic</li>
+        <li class="arabicEnText">bismillahir rahmanir rahim english vocals</li>
+        <li class="englishText">Say: I seek refuge with the Lord of the Dawn</li>
+        <li class="banglaText font-light">তুমি বলো -- ''আমি আশ্রয় চাইছি নিশিভোরের প্রভুর কাছে</li>
+    </div>
+</div>
+<!-- end each-ayat -->
+<div class="each-ayat shadow-mid border-min radius-small">
+    <i class="fa-solid fa-bookmark i-rec round mid box-bg space-x-mid"></i>
+    <div class="ayat-texts">
+        <li class="arabicText t-center font-light">bismillahir rahmanir rahim arabic</li>
+        <li class="arabicEnText">bismillahir rahmanir rahim english vocals</li>
+        <li class="englishText">Say: I seek refuge with the Lord of the Dawn</li>
+        <li class="banglaText font-light">তুমি বলো -- ''আমি আশ্রয় চাইছি নিশিভোরের প্রভুর কাছে</li>
+    </div>
+</div>
+<!-- end each-ayat -->
+
+
+
+
+</div>
+<!-- end ayats -->
+
+
+<div class="w-full space-y-max flex-column-center gap-mid">
+    <h4 class="w-full t-center" id="ayatLoadedNumber"></h4>
+  <button class="btn mid primary-bg" id="loadMoreAyatBtn">load more</button>
+</div>
+
+</div>
+<!-- end surah-mian -->
+
+<!-- start surah-rightside -->
+<div id="surah-rightside" class="border-min shadow-mid radius-mid pad-mid scroll min">
+
+    <i class="fa-solid fa-arrow-right i-rec mid box-bg" id="rightSideHideBtn"></i>    
+
+    <!-- start noteContainer -->
+   <div id="noteContainer" class="dis-hide w-full pad-mid box-bg flex-column gap-min border-min radius-small shadow-min space-y-min">
+    <h3 class="font-light t-center w-full f14">add note</h3>
+    <input id="targetSurahId" type="text" class="text-input mid" value="ibrahim">
+    <input id="targetVerse" type="number" class="text-input min" value="14">
+    <!-- start sort-drop-down -->
+    <div id="" class="dropDown max flex-column">
+        <div id="" class="selectField flex-between radius-min shadow-min">
+            <p class="optionText">category</p>
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <!-- start option -->
+        <div id="categoryList" class="dd-options border-min radius-small shadow-min scroll min">
+            <!-- <li class="dd-option"><p>language</p></li> -->
+        </div>
+        <!-- end options -->
+    </div>
+    <!-- end sort-drop-down -->
+    <div class="w-full t-center"><button id="addNoteBtn" class="btn mid secondary-bg">add note</button></div>
+   </div>
+<!-- end noteContainer -->
+
+
+    <!-- <h1 class="t-center font-light space-y-mid" id="currentSurahName">Fatiha</h1> -->
+    <!-- start table -->
+    <div class="flex-center" class="space-y-mid" id="surahTableContainer">
+        <table class='' id="surahInfo-table"> 
+            <caption id="currentSurahName" class="box-bg">Surah Information</caption>
+            <thead>
+                <tr>
+                    <th>Parameter</td>
+                    <th>Details</td>    
+                </tr>
+            </thead>
+            <tbody>
+                <!-- <tr>
+                    <td>surah</td>
+                    <td>fatiha</td>    
+                </tr> -->
+            </tbody>
+        </table>
+        
+    </div>
+    <!-- end table -->
+
+<div class="space-y-max pad-mid" id="surahDesContainer">
+    <h2 class="t-center font-light">Description</h2>
+    <p class="description-text space-y-min font-light" id="desText">
+    </p>
+
+</div>
+
+
+</div>
+<!-- end surah-rightside -->
+
+</section>
+<!-- end section-surah -->
+    <!-- -------------------------------------------------------------------------------------------- -->
+
+
+
+
+<!-- start section-note -->
+<section id="section-note" class="full dis-hide">
+
+<header class="parent">
+    <!-- start sort-drop-down -->
+    <div id="" class="dropDown  mid flex-column space-y-max">
+        <div id="" class="selectField flex-between radius-min shadow-min">
+            <p class="optionText">category</p>
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <!-- start option -->
+        <div id="categoryList" class="dd-options border-min radius-small shadow-min scroll min">
+            <!-- <li class="dd-option"><p>jahannam</p></li>
+            <li class="dd-option"><p>rare</p></li> -->
+        </div>
+        <!-- end options -->
+    </div>
+    <!-- end sort-drop-down -->
+    <h2 class="t-center font-light space-y-mid" id="noteTitle">All Note</h2>
+    <div class="abs-right">
+        <span class="small-tooltip left" data-ttText="delete note">
+            <i id="deleteNoteBtn" class="fa-solid fa-trash i-rec mid crimson-bg white disable"></i>
+        </span>
+        <span class="small-tooltip left" data-ttText="view full">
+            <i id="noteViewBtn" class="fa-solid fa-eye i-rec mid box-bg"></i>
+        </span>
+    </div>
+</header>
+<!-- end header -->
+
+
+    <!-- start table -->
+    <div id="noteTable" class="flex-center" class="space-y-mid">
+        <table class='shortTable' id="surahInfo-table"> 
+            <thead>
+                <tr>
+                    <th>surah</td>
+                    <th>verse</td>    
+                    <th>Category</th>
+                    <th>short</th>
+                    <th>ayat</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <!-- <tr class="" data-surahId="114" data-surahVerse="0">
+                    <td>ibrahim</td>
+                    <td>23</td>    
+                    <td>ib-23</td>
+                    <td>From the mischief of those who practise secret arts</td>                    
+                </tr> -->
+            </tbody>
+        </table>
+        
+    </div>
+    <!-- end table -->
+
+<footer class="w-full flex-column-center gap-mid space-y-max">
+    <h4 id="noteLoadedNumber" class="w-full t-center"></h4>
+    <button class="btn mid primary-bg" id="noteLoadBtn">load more</button>
+</footer>
+
+</section>
+<!-- end section-note -->
+
+
+
+
+<!--start word-table  -->
+<section id="section-word-table" class="full dis-hide">
+
+<header>
+    <!-- start sort-drop-down -->
+    <div id="" class="dropDown surahDD mid flex-column space-y-max">
+        <div id="" class="selectField flex-between radius-min shadow-min">
+            <p class="optionText">Surah</p>
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <!-- start option -->
+        <div id="" class="dd-options border-min radius-small shadow-min scroll min">
+            <!-- <li class="dd-option"><p>113.Falaq</p></li>
+            <li class="dd-option"><p>112.Ekhlas</p></li> -->
+        </div>
+        <!-- end options -->
+    </div>
+    <!-- end sort-drop-down -->
+
+    <h2 class="t-center font-light space-y-mid" id="word-table-title">Manner Realted Topic</h2>
+</header>
+<!-- end header -->
+
+
+    <!-- start table -->
+    <div class="flex-center space-y-mid table-container radius-min" id="wordTableContainer">
+        <table class='' id="surahInfo-table"> 
+
+            <thead>
+                <tr>
+                    <th>arabic</td>
+                    <th>ar-bangla</td>    
+                    <th>english</td>    
+                    <th>bangla</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>ilah</td>
+                    <td>ইলাহ</td>    
+                    <td>God</td>
+                    <td>সৃষ্টিকর্তা</td>
+                </tr>
+
+
+            </tbody>
+        </table>
+        
+    </div>
+    <!-- end table -->
+
+<footer class="w-full space-y-max flex-column-center gap mid">
+    <h4 id="loadedWordNumber" class="w-full t-center"></h4>
+    <button class="btn mid primary-bg" id="wordLoadBtn">load more</button>
+</footer>
+
+
+</section>
+<!--end word-table  -->
+
+
+
+
+
+<!-- start add-category -->
+<section id="section-add-category" class="full flex-column-center dis-hide">
+     
+    <header class="w-full parent">
+        <h3 class="t-center" >All category</h3>
+        <span class="small-tooltip left abs-right" data-ttText="delete note">
+            <i id="deleteCategoryBtn" class="fa-solid fa-trash i-rec mid crimson-bg white disable"></i>
+        </span>
+    </header>
+
+    <div id="allCategoryList" class="w-full flex wrap gap-mid pad-max">
+        <!-- <li class="box-bg pad-min shadow-min border-min radius-small">GOD</li> -->
+        <!-- <li class="box-bg pad-min shadow-min border-min radius-small">prophet</li> -->
+    </div>
+<input type="text" class="text-input mid" id="categoryInput">
+<button class="btn mid secondary-bg" id="categoryAddBtn">add</button>
+</section>
+<!-- end add-category -->
+
+
+<section id="section-QNA"></section>
+
+
+
+<!--start section add surah -->
+<section id="section-add-surah" class="full scroll min pad-mid dis-hide">
+
+    <div class="parent w-full">
+        <i class="fa-solid fa-trash i-rec mid crimson-bg dis-hide space-y-mid abs-right" id="surahDeleteBtn"></i>
+    </div>    
+
+    <!-- start sort-drop-down -->
+    <div id="" class="dropDown surahDD max flex-column space-y-max dis-hide">
+        <div id="" class="selectField flex-between radius-min shadow-min">
+            <p class="optionText">Surah</p>
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <!-- start option -->
+        <div id="" class="dd-options border-min radius-small shadow-min scroll min">
+            <!-- <li class="dd-option"><p>0.faitha</p></li>
+            <li class="dd-option"><p>114.Nas</p></li>
+            <li class="dd-option"><p>113.Falaq</p></li>
+            <li class="dd-option"><p>112.Ekhlas</p></li>
+            <li class="dd-option"><p>0.faitha</p></li>
+            <li class="dd-option"><p>114.Nas</p></li>
+            <li class="dd-option"><p>113.Falaq</p></li>
+            <li class="dd-option"><p>112.Ekhlas</p></li>
+            <li class="dd-option"><p>0.faitha</p></li>
+            <li class="dd-option"><p>114.Nas</p></li>
+            <li class="dd-option"><p>113.Falaq</p></li>
+            <li class="dd-option"><p>112.Ekhlas</p></li> -->
+        </div>
+        <!-- end options -->
+    </div>
+    <!-- end sort-drop-down -->
+
+<h3 class="font-light t-center space-y-mid sectionTitle">Add Surah</h3>
+
+<form action="">
+
+<div class="flex wrap">
+    <input value="114" id="surahIdInput" type="text" class="text-input min" placeholder="id">
+    <input value="nas" id="surahNameInput" type="text" class="text-input min" placeholder="name">
+    <input value="human" id="surahMeaningInput" type="text" class="text-input min" placeholder="meaning">
+    <input value="5" id="surahVerseInput" type="text" class="text-input min" placeholder="ayat">
+</div>
+
+<div class="w-full space-y-mid">
+
+    <textarea id="surahDescription" class="text-input textarea" placeholder="description/description/description/../">nice surah/last surah of quran/shor surah</textarea>
+    <textarea id="surahWordInput" class="text-input textarea" placeholder="insert word(/,**)">ar1/ar2/ar3/ar4**arEn1/arEn2/arEn3/arEn4**en1/en2/en4/en4</textarea>
+
+    <textarea id="arInput" class="text-input textarea" placeholder="insert arabic line (/)">line1/line2/line3/line4</textarea>
+    <textarea id="arEnInput" class="text-input textarea" placeholder="insert arabic-english line (/)">line1/line2/line3/line4</textarea>
+    <textarea id="enInput" class="text-input textarea" placeholder="insert english line (/)">line1/line2/line3/line4</textarea>
+    <textarea id="bnInput" class="text-input textarea" placeholder="insert bangla line (/)">line1/line2/line3/line4</textarea>
+</div>
+
+</form>
+<!-- end form -->
+
+
+<div class="flex-center w-full">
+    <button class="btn mid primary-bg" id="submitBtn">submit</button>
+    <button class="btn mid secondary-bg dis-hide"id="updateBtn">update</button>    
+</div>
+
+
+</section>
+<!--end section add surah -->
+
+
+
+<!-- start section-notification -->
+<section id="section-notification" class="dis-hide">
+
+    <header class="w-full flex-between pad-mid">
+        <h3 class="font-light t-center space-y-mid sectionTitle w-full ">Notification</h3>
+        <i class="fa-solid fa-xmark i-rec mid box-bg space-x-max" id="closeNtfBtn"></i>
+    </header>
+
+
+    <!-- start table -->
+    <div id="notificationTable" class="flex-center" class="space-y-mid">
+        <table class='' id="surahInfo-table"> 
+            <thead>
+                <tr>
+                    <th>date</td>
+                    <th>message</td>    
+                    <th>state</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <!-- <tr>
+                    <td>23 march,23</td>
+                    <td>New added surah nas</td>    
+                    <td><button class="btn min primary-bg">read</button></td>
+                </tr>
+                <tr class="seen">
+                    <td class="font-light">26-12-23</td>
+                    <td class="font-light">This notification is shown by user</td>    
+                    <td><button class="btn min primary-bg disable">read</button></td>
+                </tr>
+                <tr>
+                    <td>26-12-23</td>
+                    <td>New json data added</td>    
+                    <td><button class="btn min primary-bg">read</button></td>
+                </tr>
+                <tr>
+                    <td>26-12-23</td>
+                    <td>New json data added</td>    
+                    <td><button class="btn min primary-bg">read</button></td>
+                </tr>
+                <tr>
+                    <td>26-12-23</td>
+                    <td>New json data added</td>    
+                    <td><button class="btn min primary-bg">read</button></td>
+                </tr>
+                <tr>
+                    <td>26-12-23</td>
+                    <td>New json data added</td>    
+                    <td><button class="btn min primary-bg">read</button></td>
+                </tr>
+                <tr>
+                    <td>26-12-23</td>
+                    <td>surah falaq updated , now it has 5 verse</td>    
+                    <td><button class="btn min primary-bg">read</button></td>
+                </tr>
+                <tr>
+                    <td>26-12-23</td>
+                    <td>New json data added</td>    
+                    <td><button class="btn min primary-bg">read</button></td>
+                </tr>
+                <tr>
+                    <td>26-12-23</td>
+                    <td>New json data added</td>    
+                    <td><button class="btn min primary-bg">read</button></td>
+                </tr>
+                <tr>
+                    <td>26-12-23</td>
+                    <td>New json data added</td>    
+                    <td><button class="btn min primary-bg">read</button></td>
+                </tr>
+ -->
+            </tbody>
+        </table>
+        
+    </div>
+    <!-- end table -->
+<footer class="space-y-max w-full t-center">
+    <button class="btn mid primary-bg" id="loadNtfBtn">load more</button>
+</footer>
+
+</section>
+<!-- end section-notification -->
+
+
+
+<!-- start import-export section -->
+
+<section id="section-import-export" class="full flex-column-center dis-hide">
+    
+    <button id="exportBtn" class="btn mid crimson-bg has_ripple">Export Current DB</button>
+     <input type="file" id="fileInput" accept=".json" hidden>
+    <button id="importBtn" class="btn mid primary-bg">Import DB</button>
+    <button class="btn mid crimson-bg" id="clearDbBtn">clear Db</button>
+</section>
+
+
+<!-- end import-export section -->
+
+
+
+
+</main>
+<!-- end main -->
+
+
+
+
+
+
+
+<!-- start toastNotificati;on -->
+<!-- <div class="toastNotification"> -->
+    <!-- </div> -->
+<!-- end toastNotificaiton -->
+
+
+
+
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/main.js" defer type="module"></script>
+    <!-- by using defer it load the html load -->
+
+</body>
+</html>
